@@ -23,7 +23,6 @@ except Exception as e:
     print(f"Error loading model: {e}")
     print("Make sure 'phishing_model.pkl' and 'feature_order.pkl' are in the same folder.")
 
-# --- HELPER FUNCTIONS (MUST MATCH TRAINING EXACTLY) ---
 def calculate_entropy(text):
     if not text: return 0
     counts = Counter(text)
@@ -67,7 +66,6 @@ def extract_features(url):
     features['has_sus_keyword'] = 1 if any(w in url.lower() for w in suspicious_words) else 0
     return features
 
-# --- API ROUTES ---
 
 @app.route('/status', methods=['GET'])
 def status():
@@ -81,7 +79,8 @@ def predict():
         if not data or 'url' not in data:
             return jsonify({'error': 'No URL provided'}), 400
         
-        target_url = data['url']
+        # Remove trailing slash to prevent slash_count overfitting
+        target_url = data['url'].rstrip('/')
         
         # 2. Extract Features
         features_dict = extract_features(target_url)

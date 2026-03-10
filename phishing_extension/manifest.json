@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "PhishGuard: Lexical Analysis",
+  "version": "1.0",
+  "description": "Real-time phishing detection powered by Machine Learning.",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "activeTab"
+  ]
+}
