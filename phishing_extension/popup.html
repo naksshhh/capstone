@@ -2,65 +2,94 @@
 <html>
 <head>
   <style>
-    body { 
-      width: 280px; 
-      padding: 15px; 
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-      text-align: left; 
+    body {
+      width: 280px;
+      padding: 15px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: left;
       margin: 0;
     }
-    h3 { 
-      text-align: center; 
-      margin-top: 0; 
-      color: #333; 
-      border-bottom: 1px solid #eee; 
-      padding-bottom: 10px; 
+    .header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
     }
-    .url-display { 
-      font-size: 11px; 
-      word-wrap: break-word; 
-      color: #0056b3; 
-      margin-bottom: 15px; 
+    h3 { margin: 0; color: #333; }
+    #mode-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #fff;
+      background: #555;
+      padding: 2px 7px;
+      border-radius: 10px;
+      letter-spacing: 0.5px;
+    }
+    .url-display {
+      font-size: 11px;
+      word-wrap: break-word;
+      color: #0056b3;
+      margin-bottom: 12px;
       text-align: center;
       background-color: #f8f9fa;
       padding: 5px;
       border-radius: 4px;
     }
-    #verdict-container { 
-      text-align: center; 
-      margin: 15px 0; 
-      padding: 12px; 
-      border-radius: 6px; 
-      font-weight: bold; 
-      font-size: 16px; 
+    #verdict-container {
+      text-align: center;
+      margin: 12px 0;
+      padding: 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 16px;
       letter-spacing: 1px;
     }
-    .safe { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-    .phish { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    .safe    { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+    .phish   { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
     .loading { background-color: #e2e3e5; color: #383d41; border: 1px solid #d6d8db; }
-    
-    /* Stats Table Styling */
-    .metric { 
-      margin-bottom: 8px; 
-      font-size: 13px; 
+
+    .metric {
+      margin-bottom: 8px;
+      font-size: 13px;
       display: flex;
       justify-content: space-between;
       border-bottom: 1px dashed #eee;
       padding-bottom: 4px;
     }
     .label { color: #555; font-weight: 600; }
-    .value { color: #222; font-family: monospace; font-size: 14px;}
+    .value { color: #222; font-family: monospace; font-size: 14px; }
+
+    #scan-btn {
+      display: none;
+      width: 100%;
+      margin-top: 12px;
+      padding: 7px;
+      background: #0056b3;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    #scan-btn:hover { background: #004494; }
+    #scan-btn:disabled { background: #aaa; cursor: default; }
   </style>
 </head>
 <body>
-  <h3>PhishGuard Lexical</h3>
-  
-  <div class="url-display" id="url">Fetching URL...</div>
-  
+  <div class="header">
+    <h3>PhishGuard</h3>
+    <span id="mode-label">Analyzing...</span>
+  </div>
+
+  <div class="url-display" id="url">Fetching...</div>
+
   <div id="verdict-container" class="loading">
     <span id="verdict">Analyzing...</span>
   </div>
-  
+
   <div class="metric">
     <span class="label">Risk Score:</span>
     <span class="value" id="risk-score">-- / 100</span>
@@ -73,6 +102,8 @@
     <span class="label">Is Phishing:</span>
     <span class="value" id="is-phishing">--</span>
   </div>
+
+  <button id="scan-btn">Scan Current Email</button>
 
   <script src="popup.js"></script>
 </body>

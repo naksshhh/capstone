@@ -1,12 +1,33 @@
 {
   "manifest_version": 3,
   "name": "PhishGuard: Lexical Analysis",
-  "version": "1.0",
-  "description": "Real-time phishing detection powered by Machine Learning.",
+  "version": "2.0",
+  "description": "Real-time phishing detection for URLs and emails, powered by Machine Learning.",
   "action": {
     "default_popup": "popup.html"
   },
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:5000/*",
+    "https://mail.google.com/*",
+    "https://outlook.live.com/*",
+    "https://outlook.office.com/*",
+    "https://mail.yahoo.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://mail.google.com/*",
+        "https://outlook.live.com/*",
+        "https://outlook.office.com/*",
+        "https://mail.yahoo.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
   ]
 }
